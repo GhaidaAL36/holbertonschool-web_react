@@ -4,14 +4,14 @@ export interface Teacher {
   fullTimeEmployee: boolean;
   yearsOfExperience?: number;
   location: string;
-  [attribute: string]: string | number | boolean | undefined;
+  [attribute: string]: any;
 }
 
-const teacher1: Teacher = {
-  firstName: 'Ghaida',
+const teacher3: Teacher = {
+  firstName: 'John',
   fullTimeEmployee: false,
-  lastName: 'Almutairir',
-  location: 'Riyadh',
+  lastName: 'Doe',
+  location: 'London',
   contract: false,
 };
 
@@ -31,7 +31,7 @@ export interface printTeacherFunction {
   (firstName: string, lastName: string): string;
 }
 
-export const printTeacher: printTeacherFunction = (firstName, lastName) =>
+export const printTeacher: printTeacherFunction = (firstName: string, lastName: string): string =>
   `${firstName.charAt(0)}. ${lastName}`;
 
 export interface StudentClassInterface {
@@ -44,22 +44,20 @@ export interface StudentConstructor {
 }
 
 export class StudentClass implements StudentClassInterface {
-  constructor(private firstName: string, private lastName: string) {}
+  constructor(private firstName: string, private lastName: string) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
 
   workOnHomework(): string {
     return 'Currently working';
   }
 
   displayName(): string {
-    return `${this.firstName} ${this.lastName}`;
+    return this.firstName;
   }
 }
 
 const StudentCtor: StudentConstructor = StudentClass;
 
-console.log(
-  teacher1,
-  director1,
-  printTeacher('John', 'Doe'),
-  new StudentCtor('Jane', 'Smith')
-);
+console.log(teacher3, director1, printTeacher('John', 'Doe'), new StudentCtor('Jane', 'Smith'));
